@@ -31,14 +31,15 @@ main()
     let user1 = new User({
       username: "Satyam Mishra",
       email: "satyam@gmail.com",
-      content: "Hello world!",
-      likes: 7
     });
-
-    post1.use = user1;
+     let post1 = new Post({
+      content: "Hello world!",
+      likes: 7,
+     });
+    post1.user = user1;
 
     await user1.save();
-    await post1.data();
+    await post1.save();
   };
 
   addData();
