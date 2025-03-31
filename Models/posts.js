@@ -14,3 +14,31 @@ main()
     email: String
   });
   
+
+  const postSchema = new Schema ({
+    content: String,
+    likes: Number,
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    }
+  });
+
+  const User = mongoose.model("User", userSchema);
+  const Post = mongoose.model("Post",postSchema);
+
+  const addData = async () => {
+    let user1 = new User({
+      username: "Satyam Mishra",
+      email: "satyam@gmail.com",
+      content: "Hello world!",
+      likes: 7
+    });
+
+    post1.use = user1;
+
+    await user1.save();
+    await post1.data();
+  };
+
+  addData();
