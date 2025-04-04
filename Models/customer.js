@@ -23,14 +23,22 @@ const customerSchema = new Schema({
     },
   ],
 });
+//
+//customerSchema.pre("findOneAndDelete", async function () {
+//  console.log("PRE MIDDLEWARE");
+//});
+
+customerSchema.post("findOneAndDelete", async function () {
+  console.log("PRE MIDDLEWARE");
+});
 
 const Order = mongoose.model("Order", orderSchema);
 const Customer = mongoose.model("Customer", customerSchema);
 
 const findCustomer = async () => {
 //  let cus1 = new Customer({
- //   name: "SATYAM MISHRA",
-  //});
+//   name: "SATYAM MISHRA",
+//  });
 
   //let order1 = await Order.findOne({ item: "Chips" });
   //let order2 = await Order.findOne({ item: "Chocolate" });
@@ -42,7 +50,7 @@ const findCustomer = async () => {
   console.log(result[0]);
 };
 
-findCustomer();
+//findCustomer();
 
 /* const addOrders = async () => {
   const existingOrders = await Order.find({ item: { $in: ["Samosa", "Chips", "Chocolate"] } });
@@ -61,3 +69,29 @@ findCustomer();
 };
 
 addOrders(); */
+
+const addCust = async () =>{
+  let newCust = new Customer({
+    name: " Karan , Arjun"
+  });
+
+  let newOrder = new Order({
+    item: "Burger",
+    price: 250,
+  });
+
+  newCust.orders.push(newOrder);
+
+  await newOrder.save()
+  await newCust.save();
+
+  console.log("added new customer");
+};
+
+const delCust = async () => {
+  const result = await Customer.findOneAndDelete({ name: "SATYAM MISHRA" });
+  console.log(result);
+};
+
+//addCust();
+delCust();
